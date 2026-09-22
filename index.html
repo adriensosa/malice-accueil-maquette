@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Malice — Atelier de Carnetterie (maquette)</title>
+<style>
+  :root {
+    --cream: #f7f1ea;
+    --paper: #fffdf9;
+    --ink: #2a1f1a;
+    --muted: #6b5a50;
+    --terracotta: #c45c26;
+    --terracotta-dark: #9e4518;
+    --sand: #e8d7c5;
+    --brown: #4a3428;
+    --line: #e5d8cc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.5;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  .wrap { width: min(1120px, 92vw); margin: 0 auto; }
+
+  /* Top bar — filled with reassurance */
+  .topbar {
+    background: var(--brown);
+    color: #f5ebe3;
+    text-align: center;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    padding: 0.55rem 1rem;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  /* Header — nav in header, no search/account */
+  header.site {
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 40;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.9rem 0;
+  }
+  .logo {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .logo span { display: block; font-size: 0.62rem; letter-spacing: 0.28em; font-weight: 500; color: var(--muted); margin-top: 2px; }
+  nav.main { display: flex; align-items: center; gap: 1.6rem; font-family: system-ui, sans-serif; font-size: 0.9rem; }
+  nav.main > a:hover { color: var(--terracotta); }
+  .nav-item { position: relative; }
+  .nav-item > button {
+    background: none; border: none; cursor: pointer;
+    font: inherit; color: inherit; display: flex; align-items: center; gap: 0.35rem;
+  }
+  .nav-item > button:hover { color: var(--terracotta); }
+  .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 12px 30px rgba(42,31,26,0.08);
+    padding: 0.6rem 0;
+    margin-top: 0.6rem;
+  }
+  .nav-item:hover .dropdown, .nav-item:focus-within .dropdown { display: block; }
+  .dropdown a {
+    display: block;
+    padding: 0.45rem 1rem;
+    font-size: 0.88rem;
+  }
+  .dropdown a:hover { background: var(--cream); color: var(--terracotta); }
+  .cart {
+    font-family: system-ui, sans-serif;
+    font-size: 0.85rem;
+    border: 1px solid var(--line);
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+  }
+
+  /* Hero — products & ambiance, text (not logo-as-image), clickable CTA */
+  .hero {
+    position: relative;
+    min-height: clamp(420px, 68vh, 620px);
+    display: grid;
+    place-items: end start;
+    overflow: hidden;
+    background:
+      linear-gradient(120deg, rgba(42,31,26,0.55) 0%, rgba(42,31,26,0.15) 55%, rgba(42,31,26,0.35) 100%),
+      radial-gradient(circle at 20% 70%, #d4a574 0%, transparent 45%),
+      radial-gradient(circle at 80% 30%, #8b5a3c 0%, transparent 40%),
+      linear-gradient(160deg, #c9a882, #6b4226 55%, #3d2418);
+  }
+  .hero-pattern {
+    position: absolute; inset: 0; opacity: 0.18;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(255,255,255,0.08) 18px, rgba(255,255,255,0.08) 19px);
+  }
+  .hero-products {
+    position: absolute; inset: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.6rem;
+    padding: 2rem;
+    opacity: 0.35;
+  }
+  .hero-products .tile {
+    border-radius: 8px;
+    background: rgba(255,253,249,0.25);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-products .tile:nth-child(odd) { background: rgba(196,92,38,0.25); }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: clamp(2rem, 5vw, 4rem);
+    color: #fffdf9;
+    max-width: 560px;
+  }
+  .hero-eyebrow {
+    font-family: system-ui, sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 0.75rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.1rem, 4.5vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1.12;
+    margin-bottom: 0.85rem;
+  }
+  .hero p {
+    font-size: 1.08rem;
+    opacity: 0.92;
+    margin-bottom: 1.5rem;
+    max-width: 36ch;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: system-ui, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: var(--terracotta);
+    color: white;
+    padding: 0.85rem 1.4rem;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: var(--terracotta-dark); }
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.55);
+    color: white;
+    margin-left: 0.6rem;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.12); }
+
+  section { padding: clamp(3rem, 6vw, 5rem) 0; }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+  .section-head h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 500;
+  }
+  .section-head p { color: var(--muted); font-family: system-ui, sans-serif; font-size: 0.92rem; max-width: 36ch; }
+  .link-all {
+    font-family: system-ui, sans-serif;
+    font-size: 0.88rem;
+    color: var(--terracotta);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Category grid — second section */
+  .cats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 800px) { .cats { grid-template-columns: repeat(2, 1fr); } }
+  .cat {
+    position: relative;
+    aspect-ratio: 4/5;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--sand);
+    display: flex;
+    align-items: end;
+    padding: 1.1rem;
+    color: white;
+    isolation: isolate;
+  }
+  .cat::before {
+    content: "";
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(to top, rgba(42,31,26,0.75), transparent 55%);
+  }
+  .cat:nth-child(1) { background: linear-gradient(145deg, #d9b08c, #8a5533); }
+  .cat:nth-child(2) { background: linear-gradient(145deg, #c9b8a8, #5c4638); }
+  .cat:nth-child(3) { background: linear-gradient(145deg, #e0c4a8, #7a4e32); }
+  .cat:nth-child(4) { background: linear-gradient(145deg, #b89b7d, #3f2d22); }
+  .cat strong { font-size: 1.15rem; font-weight: 500; }
+  .cat span { display: block; font-family: system-ui, sans-serif; font-size: 0.78rem; opacity: 0.85; margin-top: 0.2rem; }
+  .cat:hover { transform: translateY(-2px); transition: transform 0.2s; }
+
+  /* Bestsellers — ~5 products, short names, € at end */
+  .products {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.1rem;
+  }
+  @media (max-width: 900px) { .products { grid-template-columns: repeat(2, 1fr); } }
+  .product {
+    background: var(--paper);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .product-visual {
+    aspect-ratio: 1;
+    background: linear-gradient(160deg, #efe2d4, #c9a882);
+  }
+  .product:nth-child(1) .product-visual { background: linear-gradient(160deg, #e8d5c0, #a66d45); }
+  .product:nth-child(2) .product-visual { background: linear-gradient(160deg, #ddd0c2, #6d5344); }
+  .product:nth-child(3) .product-visual { background: linear-gradient(160deg, #f0dcc8, #c45c26); }
+  .product:nth-child(4) .product-visual { background: linear-gradient(160deg, #dcc9b4, #7a5538); }
+  .product:nth-child(5) .product-visual { background: linear-gradient(160deg, #ebe0d2, #4a3428); }
+  .product-body { padding: 0.9rem 1rem 1.1rem; }
+  .product h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .product .price {
+    font-family: system-ui, sans-serif;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  .cta-row { text-align: center; margin-top: 2rem; }
+
+  /* Story + Sophie */
+  .story {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (max-width: 800px) { .story { grid-template-columns: 1fr; } }
+  .story-visual {
+    aspect-ratio: 4/5;
+    border-radius: 16px;
+    background:
+      radial-gradient(circle at 40% 30%, #f0d8c0 0%, transparent 50%),
+      linear-gradient(160deg, #d4b396, #6b4632);
+    position: relative;
+  }
+  .story-badge {
+    position: absolute;
+    bottom: 1.2rem; left: 1.2rem;
+    background: var(--paper);
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    font-family: system-ui, sans-serif;
+    font-size: 0.82rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .story-badge strong { display: block; font-size: 0.95rem; margin-bottom: 0.15rem; }
+  .story h2 { font-size: clamp(1.6rem, 2.8vw, 2.2rem); font-weight: 500; margin-bottom: 1rem; }
+  .story p { color: var(--muted); margin-bottom: 1rem; font-size: 1.02rem; }
+  .story .meta { font-family: system-ui, sans-serif; font-size: 0.85rem; color: var(--terracotta); font-weight: 600; }
+
+  /* Reassurance — bottom of homepage flow */
+  .trust {
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    text-align: center;
+  }
+  @media (max-width: 800px) { .trust-grid { grid-template-columns: repeat(2, 1fr); } }
+  .trust-item h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.35rem; }
+  .trust-item p { font-family: system-ui, sans-serif; font-size: 0.85rem; color: var(--muted); }
+  .trust-icon {
+    width: 42px; height: 42px; margin: 0 auto 0.75rem;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    display: grid; place-items: center;
+    font-size: 1.1rem;
+  }
+
+  /* Unique creation — reassurance at end of flow, before gallery */
+  .unique {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .unique h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 500; margin-bottom: 0.75rem; }
+  .unique p { color: var(--muted); margin-bottom: 1.25rem; }
+  .contact-line {
+    font-family: system-ui, sans-serif;
+    font-size: 0.9rem;
+    color: var(--ink);
+  }
+  .contact-line a { color: var(--terracotta); font-weight: 600; }
+
+  /* Instagram-style gallery */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.4rem;
+  }
+  @media (max-width: 700px) { .gallery { grid-template-columns: repeat(3, 1fr); } }
+  .g-item {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    background: var(--sand);
+  }
+  .g-item:nth-child(1) { background: linear-gradient(135deg, #e2c4a4, #8f5c3a); }
+  .g-item:nth-child(2) { background: linear-gradient(135deg, #d8cfc4, #5a4638); }
+  .g-item:nth-child(3) { background: linear-gradient(135deg, #f0d2b8, #c45c26); }
+  .g-item:nth-child(4) { background: linear-gradient(135deg, #cbb59c, #3f2d22); }
+  .g-item:nth-child(5) { background: linear-gradient(135deg, #ebd9c4, #7a5538); }
+  .g-item:nth-child(6) { background: linear-gradient(135deg, #d4b8a0, #6b4226); }
+
+  footer.site {
+    background: var(--brown);
+    color: #f3e9e0;
+    padding: 3rem 0 2rem;
+    font-family: system-ui, sans-serif;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  footer .brand { font-family: Georgia, serif; font-size: 1.3rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.6rem; }
+  footer p { font-size: 0.88rem; opacity: 0.8; max-width: 28ch; }
+  footer h4 { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.85rem; opacity: 0.7; }
+  footer ul { list-style: none; }
+  footer li { margin: 0.4rem 0; font-size: 0.9rem; }
+  footer a:hover { color: #f0b48a; }
+  .social { display: flex; gap: 0.75rem; margin-top: 1rem; }
+  .social a {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.25);
+    display: grid; place-items: center;
+    font-size: 0.75rem; font-weight: 700;
+  }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 1.2rem;
+    font-size: 0.8rem;
+    opacity: 0.65;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .mock-note {
+    position: fixed;
+    bottom: 12px; right: 12px;
+    z-index: 50;
+    background: var(--ink);
+    color: white;
+    font-family: system-ui, sans-serif;
+    font-size: 0.72rem;
+    padding: 0.45rem 0.7rem;
+    border-radius: 8px;
+    opacity: 0.85;
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">Pièces uniques · 100&nbsp;% fait main · Envoi soigné depuis l’atelier</div>
+
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="logo" href="#">Malice<span>Atelier de Carnetterie</span></a>
+      <nav class="main" aria-label="Navigation principale">
+        <a href="#">Accueil</a>
+        <div class="nav-item">
+          <button type="button" aria-expanded="false">Nos créations ▾</button>
+          <div class="dropdown" role="menu">
+            <a href="#">Carnets</a>
+            <a href="#">Trousses</a>
+            <a href="#">Marque-pages</a>
+            <a href="#">Stylos & accessoires</a>
+            <a href="#">Toutes les créations</a>
+          </div>
+        </div>
+        <a href="#sophie">À propos</a>
+        <a href="#contact">Contact</a>
+        <a href="#">Journal</a>
+      </nav>
+      <a class="cart" href="#">Panier (0)</a>
+    </div>
+  </header>
+
+  <section class="hero" id="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-products" aria-hidden="true">
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Matières nobles · Pièces signées</p>
+      <h1>Atelier de Carnetterie</h1>
+      <p>Chaque pièce raconte une histoire. La tienne commence ici — cuir, fil et main, depuis l’atelier.</p>
+      <a class="btn" href="#creations">Découvrir les créations</a>
+      <a class="btn btn-ghost" href="#cats">Voir les catégories</a>
+    </div>
+  </section>
+
+  <section id="cats">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Entrer par type de création</h2>
+          <p>Des portes d’entrée claires vers chaque univers — pas une liste de produits interminable.</p>
+        </div>
+      </div>
+      <div class="cats">
+        <a class="cat" href="#"><strong>Carnets</strong><span>Cuir & papier</span></a>
+        <a class="cat" href="#"><strong>Trousses</strong><span>Rangement du quotidien</span></a>
+        <a class="cat" href="#"><strong>Marque-pages</strong><span>Petits détails</span></a>
+        <a class="cat" href="#"><strong>Accessoires</strong><span>Stylos & plus</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="creations" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>À la une</h2>
+          <p>Cinq pièces choisies — noms courts, prix clairs.</p>
+        </div>
+        <a class="link-all" href="#">Voir toutes les créations →</a>
+      </div>
+      <div class="products">
+        <article class="product">
+          <div class="product-visual"></div>
+          <div class="product-body">
+            <h3>Petit carnet en cuir</h3>
+            <p class="price">120&nbsp;€</p>
+          </div>
+        </article>
+        <article class="product">
+          <div class="product-visual"></div>
+          <div class="product-body">
+            <h3>Carnet de voyage</h3>
+            <p class="price">145&nbsp;€</p>
+          </div>
+        </article>
+        <article class="product">
+          <div class="product-visual"></div>
+          <div class="product-body">
+            <h3>Trousse lin & cuir</h3>
+            <p class="price">68&nbsp;€</p>
+          </div>
+        </article>
+        <article class="product">
+          <div class="product-visual"></div>
+          <div class="product-body">
+            <h3>Marque-page tressé</h3>
+            <p class="price">24&nbsp;€</p>
+          </div>
+        </article>
+        <article class="product">
+          <div class="product-visual"></div>
+          <div class="product-body">
+            <h3>Étui plume</h3>
+            <p class="price">52&nbsp;€</p>
+          </div>
+        </article>
+      </div>
+      <div class="cta-row">
+        <a class="btn" href="#">Explorer toutes les créations</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="sophie" style="background: var(--paper); border-top: 1px solid var(--line);">
+    <div class="wrap story">
+      <div class="story-visual">
+        <div class="story-badge">
+          <strong>Sophie</strong>
+          Créatrice · Atelier Malice
+        </div>
+      </div>
+      <div>
+        <p class="meta">Rencontre</p>
+        <h2>Derrière chaque pièce, une main</h2>
+        <p>Malice, c’est l’atelier de Sophie : des carnets et accessoires façonnés un à un, signés, jamais industriels. Une vision simple — des objets qui durent, qui se glissent dans la poche, qui deviennent les compagnons d’une histoire personnelle.</p>
+        <p>Sur mesure possible : écrivez-lui pour imaginer une pièce à votre image.</p>
+        <a class="btn" href="#contact" style="margin-top:0.5rem">Lire le parcours de Sophie</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="wrap trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">✦</div>
+        <h3>100&nbsp;% fait main</h3>
+        <p>Chaque pièce est travaillée à l’atelier, numérotée et signée.</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">◇</div>
+        <h3>Cuir véritable</h3>
+        <p>Matières sélectionnées pour la main et le temps.</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">○</div>
+        <h3>Pièce unique</h3>
+        <p>Pas de stock industriel : ce que vous voyez est ce que vous recevez.</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">☏</div>
+        <h3>Sur mesure</h3>
+        <p>Un projet en tête ? Contactez Sophie directement.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap unique">
+      <h2>Une création unique qui te ressemble</h2>
+      <p>Élément rassurant en fin de parcours : l’atelier répond, accompagne, et peut imaginer une pièce sur mesure.</p>
+      <p class="contact-line">
+        <a href="mailto:bonjour@malice-atelier.fr">bonjour@malice-atelier.fr</a>
+        ·
+        <a href="tel:+33000000000">06 XX XX XX XX</a>
+      </p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>L’atelier en images</h2>
+          <p>Une galerie commune, visible partout — comme un fil Instagram.</p>
+        </div>
+        <a class="link-all" href="#">@malice.atelier →</a>
+      </div>
+      <div class="gallery" aria-label="Galerie de créations">
+        <div class="g-item"></div>
+        <div class="g-item"></div>
+        <div class="g-item"></div>
+        <div class="g-item"></div>
+        <div class="g-item"></div>
+        <div class="g-item"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="brand">Malice</div>
+          <p>Atelier de carnetterie. Pièces en cuir faites main, pensées pour durer.</p>
+          <div class="social">
+            <a href="#" aria-label="Instagram">IG</a>
+            <a href="#" aria-label="Facebook">FB</a>
+          </div>
+        </div>
+        <div>
+          <h4>Boutique</h4>
+          <ul>
+            <li><a href="#">Nos créations</a></li>
+            <li><a href="#">Carnets</a></li>
+            <li><a href="#">Trousses</a></li>
+            <li><a href="#">Journal</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Atelier</h4>
+          <ul>
+            <li><a href="#">À propos</a></li>
+            <li><a href="#">Sur mesure</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Infos pratiques</h4>
+          <ul>
+            <li><a href="#">Conditions générales de vente</a></li>
+            <li><a href="#">Politique de retour</a></li>
+            <li><a href="#">Livraison & tarifs</a></li>
+            <li><a href="#">Mentions légales</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Malice — Atelier de Carnetterie</span>
+        <span>Maquette statique · illustration des retours d’analyse</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="mock-note">Maquette HTML — non branchée à Shopify</div>
+</body>
+</html>
