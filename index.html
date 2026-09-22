@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<base href="https://adriensosa.github.io/malice-accueil-maquette/"/>
 <title>Malice — Atelier de Carnetterie (maquette)</title>
 <style>
   :root {
@@ -225,10 +226,6 @@
     position: absolute; inset: 0; z-index: -1;
     background: linear-gradient(to top, rgba(42,31,26,0.75), transparent 55%);
   }
-  .cat:nth-child(1) { background: linear-gradient(145deg, #d9b08c, #8a5533); }
-  .cat:nth-child(2) { background: linear-gradient(145deg, #c9b8a8, #5c4638); }
-  .cat:nth-child(3) { background: linear-gradient(145deg, #e0c4a8, #7a4e32); }
-  .cat:nth-child(4) { background: linear-gradient(145deg, #b89b7d, #3f2d22); }
   .cat strong { font-size: 1.15rem; font-weight: 500; }
   .cat span { display: block; font-family: system-ui, sans-serif; font-size: 0.78rem; opacity: 0.85; margin-top: 0.2rem; }
   .cat:hover { transform: translateY(-2px); transition: transform 0.2s; }
@@ -250,11 +247,6 @@
     aspect-ratio: 1;
     background: linear-gradient(160deg, #efe2d4, #c9a882);
   }
-  .product:nth-child(1) .product-visual { background: linear-gradient(160deg, #e8d5c0, #a66d45); }
-  .product:nth-child(2) .product-visual { background: linear-gradient(160deg, #ddd0c2, #6d5344); }
-  .product:nth-child(3) .product-visual { background: linear-gradient(160deg, #f0dcc8, #c45c26); }
-  .product:nth-child(4) .product-visual { background: linear-gradient(160deg, #dcc9b4, #7a5538); }
-  .product:nth-child(5) .product-visual { background: linear-gradient(160deg, #ebe0d2, #4a3428); }
   .product-body { padding: 0.9rem 1rem 1.1rem; }
   .product h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.25rem; }
   .product .price {
@@ -346,12 +338,6 @@
     border-radius: 6px;
     background: var(--sand);
   }
-  .g-item:nth-child(1) { background: linear-gradient(135deg, #e2c4a4, #8f5c3a); }
-  .g-item:nth-child(2) { background: linear-gradient(135deg, #d8cfc4, #5a4638); }
-  .g-item:nth-child(3) { background: linear-gradient(135deg, #f0d2b8, #c45c26); }
-  .g-item:nth-child(4) { background: linear-gradient(135deg, #cbb59c, #3f2d22); }
-  .g-item:nth-child(5) { background: linear-gradient(135deg, #ebd9c4, #7a5538); }
-  .g-item:nth-child(6) { background: linear-gradient(135deg, #d4b8a0, #6b4226); }
 
   footer.site {
     background: var(--brown);
@@ -513,50 +499,60 @@
   }
 
 
-  .hero {
-    background:
-      linear-gradient(120deg, rgba(42,31,26,0.62) 0%, rgba(42,31,26,0.28) 50%, rgba(42,31,26,0.45) 100%),
-      url("images/hero.jpg") center/cover no-repeat !important;
+  /* Photos via <img> — fiable partout (évite les conflits CSS background) */
+  .hero { background: #3d2418; }
+  .hero-bg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: 0;
   }
-  .hero-products { display: none !important; }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(120deg, rgba(42,31,26,0.62) 0%, rgba(42,31,26,0.28) 50%, rgba(42,31,26,0.45) 100%);
+    pointer-events: none;
+  }
+  .hero-pattern, .hero-products { display: none !important; }
+  .hero-content { z-index: 2; }
+
   .cat {
-    background-size: cover !important;
-    background-position: center !important;
+    background: #8a5533;
   }
-  .cat-1 { background-image: linear-gradient(to top, rgba(42,31,26,0.75), transparent 55%), url("images/notebook1.jpg"); }
-  .cat-2 { background-image: linear-gradient(to top, rgba(42,31,26,0.75), transparent 55%), url("images/leather1.jpg"); }
-  .cat-3 { background-image: linear-gradient(to top, rgba(42,31,26,0.75), transparent 55%), url("images/writing.jpg"); }
-  .cat-4 { background-image: linear-gradient(to top, rgba(42,31,26,0.75), transparent 55%), url("images/tools.jpg"); }
+  .cat img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: -2;
+  }
+  .cat::before { z-index: -1; }
+
   .product-visual {
-    background-size: cover !important;
-    background-position: center !important;
+    background: #c9a882;
+    overflow: hidden;
   }
-  .product:nth-child(1) .product-visual { background-image: url("images/notebook2.jpg") !important; }
-  .product:nth-child(2) .product-visual { background-image: url("images/journal-hands.jpg") !important; }
-  .product:nth-child(3) .product-visual { background-image: url("images/leather2.jpg") !important; }
-  .product:nth-child(4) .product-visual { background-image: url("images/writing.jpg") !important; }
-  .product:nth-child(5) .product-visual { background-image: url("images/leather1.jpg") !important; }
+  .product-visual img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
   .story-visual {
-    background:
-      linear-gradient(to top, rgba(42,31,26,0.15), transparent 40%),
-      url("images/sophie1.jpg") center/cover no-repeat !important;
+    background: #c9a882;
+    overflow: hidden;
+    position: relative;
   }
+  .story-visual > img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .story-badge { position: relative; z-index: 1; }
+
   .g-item {
-    background-size: cover !important;
-    background-position: center !important;
+    background: #8f5c3a;
+    overflow: hidden;
+    padding: 0;
   }
-  .g-item:nth-child(1) { background-image: url("images/gallery1.jpg") !important; }
-  .g-item:nth-child(2) { background-image: url("images/gallery2.jpg") !important; }
-  .g-item:nth-child(3) { background-image: url("images/gallery3.jpg") !important; }
-  .g-item:nth-child(4) { background-image: url("images/gallery4.jpg") !important; }
-  .g-item:nth-child(5) { background-image: url("images/gallery5.jpg") !important; }
-  .g-item:nth-child(6) { background-image: url("images/gallery6.jpg") !important; }
-  .trust-item .trust-icon {
-    background-size: cover;
-    background-position: center;
-    border: none;
-    width: 56px; height: 56px;
+  .g-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
   }
+
 
 </style>
 </head>
@@ -593,6 +589,7 @@
   </header>
 
   <section class="hero" id="hero">
+    <img class="hero-bg" src="images/hero.jpg" alt="Carnets et atelier Malice" width="1600" height="900" decoding="async"/>
     <div class="hero-pattern"></div>
     <div class="hero-products" aria-hidden="true">
       <div class="tile"></div><div class="tile"></div><div class="tile"></div>
@@ -616,10 +613,10 @@
         </div>
       </div>
       <div class="cats">
-        <a class="cat cat-1" href="#"><strong>Carnets</strong><span>Cuir & papier</span></a>
-        <a class="cat cat-2" href="#"><strong>Trousses</strong><span>Rangement du quotidien</span></a>
-        <a class="cat cat-3" href="#"><strong>Marque-pages</strong><span>Petits détails</span></a>
-        <a class="cat cat-4" href="#"><strong>Accessoires</strong><span>Stylos & plus</span></a>
+        <a class="cat cat-1" href="#"><img src="images/notebook1.jpg" alt="" width="600" height="750" loading="lazy" decoding="async"/><strong>Carnets</strong><span>Cuir & papier</span></a>
+        <a class="cat cat-2" href="#"><img src="images/leather1.jpg" alt="" width="600" height="750" loading="lazy" decoding="async"/><strong>Trousses</strong><span>Rangement du quotidien</span></a>
+        <a class="cat cat-3" href="#"><img src="images/writing.jpg" alt="" width="600" height="750" loading="lazy" decoding="async"/><strong>Marque-pages</strong><span>Petits détails</span></a>
+        <a class="cat cat-4" href="#"><img src="images/tools.jpg" alt="" width="600" height="750" loading="lazy" decoding="async"/><strong>Accessoires</strong><span>Stylos & plus</span></a>
       </div>
     </div>
   </section>
@@ -635,35 +632,35 @@
       </div>
       <div class="products">
         <article class="product">
-          <div class="product-visual"></div>
+          <div class="product-visual"><img src="images/notebook2.jpg" alt="Petit carnet en cuir" width="600" height="600" loading="lazy" decoding="async"/></div>
           <div class="product-body">
             <h3>Petit carnet en cuir</h3>
             <p class="price">120&nbsp;€</p>
           </div>
         </article>
         <article class="product">
-          <div class="product-visual"></div>
+          <div class="product-visual"><img src="images/journal-hands.jpg" alt="Carnet de voyage" width="600" height="600" loading="lazy" decoding="async"/></div>
           <div class="product-body">
             <h3>Carnet de voyage</h3>
             <p class="price">145&nbsp;€</p>
           </div>
         </article>
         <article class="product">
-          <div class="product-visual"></div>
+          <div class="product-visual"><img src="images/leather2.jpg" alt="Trousse lin et cuir" width="600" height="600" loading="lazy" decoding="async"/></div>
           <div class="product-body">
             <h3>Trousse lin & cuir</h3>
             <p class="price">68&nbsp;€</p>
           </div>
         </article>
         <article class="product">
-          <div class="product-visual"></div>
+          <div class="product-visual"><img src="images/writing.jpg" alt="Marque-page tressé" width="600" height="600" loading="lazy" decoding="async"/></div>
           <div class="product-body">
             <h3>Marque-page tressé</h3>
             <p class="price">24&nbsp;€</p>
           </div>
         </article>
         <article class="product">
-          <div class="product-visual"></div>
+          <div class="product-visual"><img src="images/leather1.jpg" alt="Étui plume" width="600" height="600" loading="lazy" decoding="async"/></div>
           <div class="product-body">
             <h3>Étui plume</h3>
             <p class="price">52&nbsp;€</p>
@@ -679,6 +676,7 @@
   <section id="sophie" style="background: var(--paper); border-top: 1px solid var(--line);">
     <div class="wrap story">
       <div class="story-visual">
+        <img src="images/sophie1.jpg" alt="Sophie dans l’atelier" width="800" height="1000" loading="lazy" decoding="async"/>
         <div class="story-badge">
           <strong>Sophie</strong>
           Créatrice · Atelier Malice
@@ -741,12 +739,12 @@
         <a class="link-all" href="#">@malice.atelier →</a>
       </div>
       <div class="gallery" aria-label="Galerie de créations">
-        <div class="g-item"></div>
-        <div class="g-item"></div>
-        <div class="g-item"></div>
-        <div class="g-item"></div>
-        <div class="g-item"></div>
-        <div class="g-item"></div>
+        <div class="g-item"><img src="images/gallery1.jpg" alt="Création atelier 1" width="600" height="600" loading="lazy" decoding="async"/></div>
+        <div class="g-item"><img src="images/gallery2.jpg" alt="Création atelier 2" width="600" height="600" loading="lazy" decoding="async"/></div>
+        <div class="g-item"><img src="images/gallery3.jpg" alt="Création atelier 3" width="600" height="600" loading="lazy" decoding="async"/></div>
+        <div class="g-item"><img src="images/gallery4.jpg" alt="Création atelier 4" width="600" height="600" loading="lazy" decoding="async"/></div>
+        <div class="g-item"><img src="images/gallery5.jpg" alt="Création atelier 5" width="600" height="600" loading="lazy" decoding="async"/></div>
+        <div class="g-item"><img src="images/gallery6.jpg" alt="Création atelier 6" width="600" height="600" loading="lazy" decoding="async"/></div>
       </div>
     </div>
   </section>
