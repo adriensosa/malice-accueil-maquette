@@ -512,6 +512,52 @@
     .products .product:nth-child(5) { max-width: none; }
   }
 
+
+  .hero {
+    background:
+      linear-gradient(120deg, rgba(42,31,26,0.62) 0%, rgba(42,31,26,0.28) 50%, rgba(42,31,26,0.45) 100%),
+      url("images/hero.jpg") center/cover no-repeat !important;
+  }
+  .hero-products { display: none !important; }
+  .cat {
+    background-size: cover !important;
+    background-position: center !important;
+  }
+  .cat-1 { background-image: linear-gradient(to top, rgba(42,31,26,0.75), transparent 55%), url("images/notebook1.jpg"); }
+  .cat-2 { background-image: linear-gradient(to top, rgba(42,31,26,0.75), transparent 55%), url("images/leather1.jpg"); }
+  .cat-3 { background-image: linear-gradient(to top, rgba(42,31,26,0.75), transparent 55%), url("images/writing.jpg"); }
+  .cat-4 { background-image: linear-gradient(to top, rgba(42,31,26,0.75), transparent 55%), url("images/tools.jpg"); }
+  .product-visual {
+    background-size: cover !important;
+    background-position: center !important;
+  }
+  .product:nth-child(1) .product-visual { background-image: url("images/notebook2.jpg") !important; }
+  .product:nth-child(2) .product-visual { background-image: url("images/journal-hands.jpg") !important; }
+  .product:nth-child(3) .product-visual { background-image: url("images/leather2.jpg") !important; }
+  .product:nth-child(4) .product-visual { background-image: url("images/writing.jpg") !important; }
+  .product:nth-child(5) .product-visual { background-image: url("images/leather1.jpg") !important; }
+  .story-visual {
+    background:
+      linear-gradient(to top, rgba(42,31,26,0.15), transparent 40%),
+      url("images/sophie1.jpg") center/cover no-repeat !important;
+  }
+  .g-item {
+    background-size: cover !important;
+    background-position: center !important;
+  }
+  .g-item:nth-child(1) { background-image: url("images/gallery1.jpg") !important; }
+  .g-item:nth-child(2) { background-image: url("images/gallery2.jpg") !important; }
+  .g-item:nth-child(3) { background-image: url("images/gallery3.jpg") !important; }
+  .g-item:nth-child(4) { background-image: url("images/gallery4.jpg") !important; }
+  .g-item:nth-child(5) { background-image: url("images/gallery5.jpg") !important; }
+  .g-item:nth-child(6) { background-image: url("images/gallery6.jpg") !important; }
+  .trust-item .trust-icon {
+    background-size: cover;
+    background-position: center;
+    border: none;
+    width: 56px; height: 56px;
+  }
+
 </style>
 </head>
 <body>
@@ -570,10 +616,10 @@
         </div>
       </div>
       <div class="cats">
-        <a class="cat" href="#"><strong>Carnets</strong><span>Cuir & papier</span></a>
-        <a class="cat" href="#"><strong>Trousses</strong><span>Rangement du quotidien</span></a>
-        <a class="cat" href="#"><strong>Marque-pages</strong><span>Petits détails</span></a>
-        <a class="cat" href="#"><strong>Accessoires</strong><span>Stylos & plus</span></a>
+        <a class="cat cat-1" href="#"><strong>Carnets</strong><span>Cuir & papier</span></a>
+        <a class="cat cat-2" href="#"><strong>Trousses</strong><span>Rangement du quotidien</span></a>
+        <a class="cat cat-3" href="#"><strong>Marque-pages</strong><span>Petits détails</span></a>
+        <a class="cat cat-4" href="#"><strong>Accessoires</strong><span>Stylos & plus</span></a>
       </div>
     </div>
   </section>
